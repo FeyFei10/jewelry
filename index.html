@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jewelry Business</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Jewelry Hub</h1>
+    </header>
+
+    <div class="sell-container">
+        <h2>Sell Your Jewelry</h2>
+        <form id="sellForm">
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" accept="image/*" required>
+
+            <label for="category">Jewelry Type:</label>
+            <select id="category" required>
+                <option value="Ring">Ring<5option>
+                <option value="Necklace">Necklace</option>
+                <option value="Bracelet">Bracelet</option>
+            </select>
+
+            <label for="name">Jewelry Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    
+    <div class="categories">
+        <div class="category">
+            <h2>Rings</h2>
+            <div id="ringList" class="product-list"></div>
+        </div>
+        <div class="category">
+            <h2>Necklaces</h2>
+            <div id="necklaceList" class="product-list"></div>
+        </div>
+        <div class="category">
+            <h2>Bracelets</h2>
+            <div id="braceletList" class="product-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js">
+        console.log("JavaScript Loaded");
+
+
+document.getElementById("sellForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+  
+    const imageInput = document.getElementById("image").files[0];
+    const category = document.getElementById("category").value;
+    const name = document.getElementById("name").value;
+    const price = document.getElementById("price").value;
+    const description = document.getElementById("description").value;
+
+    if (!imageInput) {
+        alert("Please upload an image.");
+        return;
+    }
+
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const imageUrl = event.target.result;
+        addProduct(category, imageUrl, name, price, description);
+    };
+    reader.readAsDataURL(imageInput);
+
+
+    document.getElementById("sellForm").reset();
+});
+
+function addProduct(category, imageUrl, name, price, description) {
+    const productCard = document.createElement("div");
+    productCard.classList.add("product-card");
+    productCard.innerHTML = `
+        <img src="${imageUrl}" alt="${name}">
+        <h4>${name}</h4>
+        <p>Price: $${price}</p>
+        <p>${description}</p>
+    `;
+
+    if (category === "Ring") {
+        document.getElementById("ringList").appendChild(productCard);
+    } else if (category === "Necklace") {
+        document.getElementById("necklaceList").appendChild(productCard);
+    } else if (category === "Bracelet") {
+        document.getElementById("braceletList").appendChild(productCard);
+    }
+}
+
+    </script>
+
+
+
+    <script>
+        console.log("JavaScript Loaded");
+
+       
+        document.addEventListener("DOMContentLoaded", function () {
+
+      
+            document.getElementById("sellForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+         
+                const imageInput = document.getElementById("image").files[0];
+                const category = document.getElementById("category").value;
+                const name = document.getElementById("name").value;
+                const price = document.getElementById("price").value;
+                const description = document.getElementById("description").value;
+
+                if (!imageInput) {
+                    alert("Please upload an image.");
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const imageUrl = event.target.result;
+                    addProduct(category, imageUrl, name, price, description);
+                };
+                reader.readAsDataURL(imageInput);
+
+       
+                document.getElementById("sellForm").reset();
+            });
+
+            function addProduct(category, imageUrl, name, price, description) {
+          
+                const productCard = document.createElement("div");
+                productCard.classList.add("product-card");
+                productCard.innerHTML = `
+                    <img src="${imageUrl}" alt="${name}">
+                    <h4>${name}</h4>
+                    <p>Price: $${price}</p>
+                    <p>${description}</p>
+                `;
+
+               
+                if (category === "Ring") {
+                    document.getElementById("ringList").appendChild(productCard);
+                } else if (category === "Necklace") {
+                    document.getElementById("necklaceList").appendChild(productCard);
+                } else if (category === "Bracelet") {
+                    document.getElementById("braceletList").appendChild(productCard);
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+
